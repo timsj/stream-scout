@@ -45,7 +45,18 @@ app.use(express.static(path.resolve(__dirname, "./client/build")));
 
 app.use(express.json());
 app.use(limiter);
-app.use(helmet());
+app.use(
+  helmet.contentSecurityPolicy({
+    directives: {
+      "img-src": [
+        "'self'",
+        "https://a.tile.openstreetmap.org/",
+        "https://b.tile.openstreetmap.org/",
+        "https://c.tile.openstreetmap.org/",
+      ],
+    },
+  })
+);
 app.use(xssClean());
 app.use(hpp());
 app.use(mongoSanitize());
