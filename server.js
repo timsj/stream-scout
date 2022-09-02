@@ -48,8 +48,10 @@ app.use(limiter);
 app.use(
   helmet.contentSecurityPolicy({
     directives: {
+      "default-src": ["'self'", "https://waterservices.usgs.gov"],
       "img-src": [
         "'self'",
+        "data:",
         "https://a.tile.openstreetmap.org/",
         "https://b.tile.openstreetmap.org/",
         "https://c.tile.openstreetmap.org/",
