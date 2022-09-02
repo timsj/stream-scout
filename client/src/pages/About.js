@@ -117,7 +117,7 @@ const About = () => {
         <li>
           <a
             className="repo"
-            href="https://github.com/"
+            href="https://github.com/timsj/stream-scout"
             target="_blank"
             rel="noopener noreferrer"
           >
