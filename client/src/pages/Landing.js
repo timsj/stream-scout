@@ -19,7 +19,11 @@ const Landing = () => {
         </h2>
         <p>
           Using data from the{" "}
-          <a href="https://waterdata.usgs.gov/nwis">
+          <a
+            href="https://waterdata.usgs.gov/nwis"
+            target="_blank"
+            rel="noopener noreferrer"
+          >
             USGS National Water Information System
           </a>
           , you can view real-time stream flow and gage height data for rivers
