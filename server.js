@@ -55,6 +55,7 @@ app.use(
         "https://a.tile.openstreetmap.org/",
         "https://b.tile.openstreetmap.org/",
         "https://c.tile.openstreetmap.org/",
+        "https://unpkg.com/leaflet@1.8.0/dist/images/",
       ],
     },
   })
