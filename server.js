@@ -48,14 +48,18 @@ app.use(limiter);
 app.use(
   helmet.contentSecurityPolicy({
     directives: {
-      "default-src": ["'self'", "https://waterservices.usgs.gov"],
+      "default-src": [
+        "'self'",
+        "https://waterservices.usgs.gov",
+        "https://nominatim.openstreetmap.org/",
+      ],
       "img-src": [
         "'self'",
         "data:",
         "https://a.tile.openstreetmap.org/",
         "https://b.tile.openstreetmap.org/",
         "https://c.tile.openstreetmap.org/",
-        "https://unpkg.com/leaflet@1.8.0/dist/images/",
+        "https://cdnjs.cloudflare.com/ajax/libs/leaflet/1.8.0/images/",
       ],
     },
   })
