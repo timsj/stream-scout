@@ -10,16 +10,16 @@ https://streamscout.app
 
 ### Desktop
 
-<img src="https://i.imgur.com/PajbbNR.png" style="display: inline-block; max-width: 360px" alt="desktop map"/>
-<img src="https://i.imgur.com/h1sBr3N.png" style="display: inline-block; max-width: 360px" alt="desktop chart"/>
-<img src="https://i.imgur.com/K4rOKuG.png" style="display: inline-block; max-width: 360px" alt="desktop favs"/>
+<img src="https://i.imgur.com/PajbbNR.png" height="300px" alt="desktop map"/>
+<img src="https://i.imgur.com/h1sBr3N.png" height="300px" alt="desktop chart"/>
+<img src="https://i.imgur.com/K4rOKuG.png" height="300px" alt="desktop favs"/>
 <br><br>
 
 ### Mobile
 
-<img src="https://i.imgur.com/U9JycqR.png" style="display: inline-block; max-width: 150px" alt="mobile map"/>
-<img src="https://i.imgur.com/sFrIlDb.png" style="display: inline-block; max-width: 150px" alt="mobile chart"/>
-<img src="https://i.imgur.com/WDPgnjw.png" style="display: inline-block; max-width: 150px" alt="mobile favs"/>
+<img src="https://i.imgur.com/U9JycqR.png" height="320px" alt="mobile map"/>
+<img src="https://i.imgur.com/sFrIlDb.png" height="320px" alt="mobile chart"/>
+<img src="https://i.imgur.com/WDPgnjw.png" height="320px" alt="mobile favs"/>
 <br><br>
 
 ## Data Sources
