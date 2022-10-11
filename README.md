@@ -1,7 +1,6 @@
 # StreamScout
 
 <img src="https://i.imgur.com/5AXedaD.png" width="50%" height="50%" alt="logo"/>
-<br><br>
 
 StreamScout is a website that allows users to view real-time stream flow and gage height data for rivers and streams around the United States. The site features an interactive map to find monitoring sites, chart viewer to visualize data over time, and account creation to save and track favorite sites.
 
