@@ -10,16 +10,16 @@ https://streamscout.app
 
 ### Desktop
 
-<img src="https://i.imgur.com/PajbbNR.png" height="300px" alt="desktop map"/>
-<img src="https://i.imgur.com/h1sBr3N.png" height="300px" alt="desktop chart"/>
-<img src="https://i.imgur.com/K4rOKuG.png" height="300px" alt="desktop favs"/>
+<img src="https://i.imgur.com/PajbbNR.png" width="50%" height="50%" alt="desktop map"/>
+<img src="https://i.imgur.com/h1sBr3N.png" width="50%" height="50%" alt="desktop chart"/>
+<img src="https://i.imgur.com/K4rOKuG.png" width="50%" height="50%" alt="desktop favs"/>
 <br><br>
 
 ### Mobile
 
-<img src="https://i.imgur.com/U9JycqR.png" height="320px" alt="mobile map"/>
-<img src="https://i.imgur.com/sFrIlDb.png" height="320px" alt="mobile chart"/>
-<img src="https://i.imgur.com/WDPgnjw.png" height="320px" alt="mobile favs"/>
+<img src="https://i.imgur.com/U9JycqR.png" width="20%" height="20%" alt="mobile map"/>
+<img src="https://i.imgur.com/sFrIlDb.png" width="20%" height="20%" alt="mobile chart"/>
+<img src="https://i.imgur.com/WDPgnjw.png" width="20%" height="20%" alt="mobile favs"/>
 <br><br>
 
 ## Data Sources
