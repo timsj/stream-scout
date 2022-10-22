@@ -59,7 +59,6 @@ app.use(
         "https://a.tile.openstreetmap.org/",
         "https://b.tile.openstreetmap.org/",
         "https://c.tile.openstreetmap.org/",
-        "https://cdnjs.cloudflare.com/ajax/libs/leaflet/1.8.0/images/",
       ],
     },
   })
