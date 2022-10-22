@@ -39,8 +39,21 @@ const View = () => {
   }
 
   //separate combined USGS data array into separate flow (q) and height (h) data
-  const qData = siteData[0];
-  const hData = siteData[1];
+  let qData = siteData[0];
+  let hData = siteData[1];
+
+  //add error handling to check for undefined data before sending to Chart component
+  if (!qData) {
+    qData = {
+      values: [{ value: [] }],
+    };
+  }
+
+  if (!hData) {
+    hData = {
+      values: [{ value: [] }],
+    };
+  }
 
   return (
     <Styled>
