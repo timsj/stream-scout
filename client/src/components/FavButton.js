@@ -53,7 +53,7 @@ const FavButton = ({ info }) => {
       <Styled>
         <>
           <MdFavoriteBorder className="icon" />
-          <Link to="/login " className="text text-small">
+          <Link to="/login" className="text text-small">
             Login to favorite this site
           </Link>
         </>
