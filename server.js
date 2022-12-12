@@ -3,6 +3,7 @@ import mongoose from "mongoose"; //ODM library for Node/MongoDB
 import dotenv from "dotenv";
 import "express-async-errors"; //passes on errors to our error handler middleware w/o using try/catch and next
 import morgan from "morgan"; //HTTP request logger
+import cookieParser from "cookie-parser";
 
 //static assets imports
 import { dirname } from "path";
@@ -44,6 +45,7 @@ const __dirname = dirname(fileURLToPath(import.meta.url));
 app.use(express.static(path.resolve(__dirname, "./client/build")));
 
 app.use(express.json());
+app.use(cookieParser());
 app.use(limiter);
 app.use(
   helmet.contentSecurityPolicy({

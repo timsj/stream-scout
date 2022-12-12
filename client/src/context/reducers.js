@@ -18,6 +18,8 @@ import {
   UPDATE_USER_BEGIN,
   UPDATE_USER_SUCCESS,
   UPDATE_USER_ERROR,
+  GET_CURRENT_USER_BEGIN,
+  GET_CURRENT_USER_SUCCESS,
   SET_FAVORITE,
   REMOVE_FAVORITE,
   FAV_SITE_BEGIN,
@@ -95,7 +97,6 @@ const reducer = (state, action) => {
     return {
       ...state,
       user: action.payload.user,
-      token: action.payload.token,
       isLoading: false,
       showAlert: true,
       alertType: "success",
@@ -118,7 +119,6 @@ const reducer = (state, action) => {
     return {
       ...state,
       user: action.payload.user,
-      token: action.payload.token,
       isLoading: false,
       showAlert: true,
       alertType: "success",
@@ -140,7 +140,7 @@ const reducer = (state, action) => {
       positionZoom: { p: [38, -96], z: 4 },
       boundingBox: [],
       user: null,
-      token: null,
+      userLoading: false,
     };
   }
   if (action.type === UPDATE_USER_BEGIN) {
@@ -150,7 +150,6 @@ const reducer = (state, action) => {
     return {
       ...state,
       user: action.payload.user,
-      token: action.payload.token,
       isLoading: false,
       showAlert: true,
       alertType: "success",
@@ -164,6 +163,16 @@ const reducer = (state, action) => {
       showAlert: true,
       alertType: "danger",
       alertText: action.payload.msg,
+    };
+  }
+  if (action.type === GET_CURRENT_USER_BEGIN) {
+    return { ...state, userLoading: true, showAlert: false };
+  }
+  if (action.type === GET_CURRENT_USER_SUCCESS) {
+    return {
+      ...state,
+      userLoading: false,
+      user: action.payload.user,
     };
   }
   if (action.type === SET_FAVORITE) {

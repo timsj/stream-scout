@@ -1,4 +1,4 @@
-import React, { useContext, useReducer } from "react";
+import React, { useContext, useEffect, useReducer } from "react";
 import axios from "axios";
 
 import reducer from "./reducers";
@@ -22,6 +22,8 @@ import {
   UPDATE_USER_BEGIN,
   UPDATE_USER_SUCCESS,
   UPDATE_USER_ERROR,
+  GET_CURRENT_USER_BEGIN,
+  GET_CURRENT_USER_SUCCESS,
   SET_FAVORITE,
   REMOVE_FAVORITE,
   FAV_SITE_BEGIN,
@@ -34,11 +36,8 @@ import {
   CHANGE_PAGE,
 } from "./actions";
 
-//check first for user and token in local storage and set global state if they exist
-const user = localStorage.getItem("user");
-const token = localStorage.getItem("token");
-
 const initialGlobalState = {
+  userLoading: true,
   isLoading: false,
   isFavLoading: false,
   showAlert: false,
@@ -49,8 +48,7 @@ const initialGlobalState = {
   sites: [],
   siteData: [],
   isFavorite: false,
-  user: user ? JSON.parse(user) : null,
-  token: token || null,
+  user: null,
   favs: [],
   totalFavs: 0,
   numOfPages: 1,
@@ -70,17 +68,6 @@ const AppProvider = ({ children }) => {
   const authFetch = axios.create({
     baseURL: "/api/v1",
   });
-
-  //interceptor to add Authorization header to all auth API routes
-  authFetch.interceptors.request.use(
-    (config) => {
-      config.headers.common["Authorization"] = `Bearer ${globalState.token}`;
-      return config;
-    },
-    (error) => {
-      return Promise.reject(error);
-    }
-  );
 
   authFetch.interceptors.response.use(
     (response) => {
@@ -176,26 +163,15 @@ const AppProvider = ({ children }) => {
     }, delay || 5000);
   };
 
-  const addUserToLocalStorage = ({ user, token }) => {
-    localStorage.setItem("user", JSON.stringify(user));
-    localStorage.setItem("token", token);
-  };
-
-  const removeUserFromLocalStorage = () => {
-    localStorage.removeItem("user");
-    localStorage.removeItem("token");
-  };
-
   const registerUser = async (currentUser) => {
     dispatch({ type: REGISTER_USER_BEGIN });
     try {
       const { data } = await axios.post("/api/v1/auth/register", currentUser);
-      const { user, token } = data;
+      const { user } = data;
       dispatch({
         type: REGISTER_USER_SUCCESS,
-        payload: { user, token },
+        payload: { user },
       });
-      addUserToLocalStorage({ user, token });
       clearAlert(2000);
     } catch (error) {
       dispatch({
@@ -210,12 +186,11 @@ const AppProvider = ({ children }) => {
     dispatch({ type: LOGIN_USER_BEGIN });
     try {
       const { data } = await axios.post("/api/v1/auth/login", currentUser);
-      const { user, token } = data;
+      const { user } = data;
       dispatch({
         type: LOGIN_USER_SUCCESS,
-        payload: { user, token },
+        payload: { user },
       });
-      addUserToLocalStorage({ user, token });
       clearAlert(2000);
     } catch (error) {
       dispatch({
@@ -227,20 +202,19 @@ const AppProvider = ({ children }) => {
   };
 
   const logoutUser = async () => {
+    await authFetch.get("/auth/logout");
     dispatch({ type: LOGOUT_USER });
-    removeUserFromLocalStorage();
   };
 
   const updateUser = async (currentUser) => {
     dispatch({ type: UPDATE_USER_BEGIN });
     try {
       const { data } = await authFetch.patch("/auth/updateUser", currentUser);
-      const { user, token, location } = data;
+      const { user } = data;
       dispatch({
         type: UPDATE_USER_SUCCESS,
-        payload: { user, location, token },
+        payload: { user },
       });
-      addUserToLocalStorage({ user, location, token });
     } catch (error) {
       if (error.response.status !== 401) {
         dispatch({
@@ -251,6 +225,25 @@ const AppProvider = ({ children }) => {
     }
     clearAlert();
   };
+
+  //keeps user logged in on page refresh
+  const getCurrentUser = async () => {
+    dispatch({ type: GET_CURRENT_USER_BEGIN });
+    try {
+      const { data } = await authFetch.get("/auth/getCurrentUser");
+      const { user } = data;
+      dispatch({ type: GET_CURRENT_USER_SUCCESS, payload: { user } });
+    } catch (error) {
+      if (error.response.status === 401) return;
+      logoutUser();
+    }
+  };
+
+  //run getCurrentUser on every page refresh
+  useEffect(() => {
+    getCurrentUser();
+    //eslint-disable-next-line
+  }, []);
 
   const setFavorite = (bool) => {
     //set isFavorite global state

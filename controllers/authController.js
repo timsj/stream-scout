@@ -2,6 +2,7 @@ import { StatusCodes } from "http-status-codes";
 
 import User from "../database/User.js";
 import { BadRequestError, UnauthenticatedError } from "../errors/index.js";
+import { attachCookies, removeCookies } from "../middleware/cookies.js";
 
 //controller for handling user registration, login, and user updates
 
@@ -20,6 +21,8 @@ const register = async (req, res) => {
   const user = await User.create({ firstName, lastName, email, password });
   const token = user.createJWT(); //custom User schema method for generating JWT
 
+  attachCookies({ res, token });
+
   res.status(StatusCodes.CREATED).json({
     user: {
       //have to manually set these values to avoid returning password to front-end
@@ -29,7 +32,6 @@ const register = async (req, res) => {
       lastName: user.lastName,
       email: user.email,
     },
-    token,
   });
 };
 
@@ -52,10 +54,9 @@ const login = async (req, res) => {
   const token = user.createJWT();
   user.password = undefined;
 
-  res.status(StatusCodes.OK).json({
-    user,
-    token,
-  });
+  attachCookies({ res, token });
+
+  res.status(StatusCodes.OK).json({ user });
 };
 
 const updateUser = async (req, res) => {
@@ -74,7 +75,19 @@ const updateUser = async (req, res) => {
 
   const token = user.createJWT();
 
-  res.status(StatusCodes.OK).json({ user, token });
+  attachCookies({ res, token });
+
+  res.status(StatusCodes.OK).json({ user });
 };
 
-export { register, login, updateUser };
+const getCurrentUser = async (req, res) => {
+  const user = await User.findOne({ _id: req.user.userId });
+  res.status(StatusCodes.OK).json({ user });
+};
+
+const logout = async (req, res) => {
+  removeCookies(res);
+  res.status(StatusCodes.OK).json({ msg: "User successfully logged out" });
+};
+
+export { register, login, updateUser, getCurrentUser, logout };

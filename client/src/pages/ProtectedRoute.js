@@ -2,11 +2,15 @@ import React from "react";
 import { Navigate } from "react-router-dom";
 
 import { useAppContext } from "../context/appContext";
+import { Loading } from "../components";
 
 const ProtectedRoute = ({ children }) => {
-  const { user } = useAppContext();
+  const { user, userLoading } = useAppContext();
 
-  //re-directs users that are not signed in from protected rouute to landing page
+  //while checking user auth on page refresh, shows Loading spinner
+  if (userLoading) return <Loading center />;
+
+  //re-directs users that are not signed in from protected route to landing page
   if (!user) {
     return <Navigate to="/" />;
   }
